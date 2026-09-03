@@ -114,47 +114,200 @@ body::before{
 
 main,header{position:relative;z-index:2}
 
-/* ---------- header ---------- */
+/* ---------- header / identity system ---------- */
 .top{
   position:sticky;top:0;z-index:60;
-  padding:12px 0;
-  background:linear-gradient(to bottom,rgba(7,8,11,.92),rgba(7,8,11,.7) 65%,transparent);
+  padding:10px 0 0;
+  background:linear-gradient(to bottom,rgba(7,8,11,.96),rgba(7,8,11,.76) 68%,transparent);
 }
 .nav{
-  min-height:62px;
+  position:relative;
+  min-height:72px;
   border:1px solid var(--line);
-  background:rgba(10,12,16,.94);
-  border-radius:18px;
+  background:rgba(10,12,16,.96);
+  border-radius:20px;
   display:grid;
-  grid-template-columns:1fr auto 1fr;
+  grid-template-columns:minmax(250px,1fr) auto minmax(250px,1fr);
   align-items:center;
-  padding:8px 10px 8px 14px;
+  padding:7px 8px 7px 9px;
   box-shadow:0 10px 35px rgba(0,0,0,.18);
+  transition:min-height .22s ease,border-radius .22s ease,background .22s ease;
+  overflow:hidden;
 }
-.brand{display:flex;align-items:center;gap:10px;width:max-content;font-weight:800;letter-spacing:-.04em}
-.brand-glyph{
-  width:30px;height:30px;border-radius:8px;position:relative;overflow:hidden;
-  background:var(--acid);
+.top.is-scrolled .nav{
+  min-height:60px;
+  border-radius:16px;
+  background:rgba(9,11,15,.985);
 }
-.brand-glyph::before{
-  content:"";position:absolute;inset:7px;border:1px solid #090b08;transform:rotate(45deg)
+.header-progress{
+  position:absolute;
+  left:0;right:0;bottom:0;height:1px;
+  background:rgba(255,255,255,.055);
+  overflow:hidden;
 }
-.brand-glyph::after{
-  content:"";position:absolute;width:24px;height:1px;background:#090b08;left:3px;top:14px
+.header-progress::after{
+  content:"";
+  position:absolute;inset:0;
+  transform-origin:left center;
+  transform:scaleX(var(--scroll-progress,0));
+  background:linear-gradient(90deg,var(--acid),var(--cyan),var(--violet));
+  transition:transform .08s linear;
 }
-.navlinks{display:flex;align-items:center;gap:5px}
-.navlinks a{
-  color:var(--muted);font-size:12px;font-weight:700;
-  padding:10px 12px;border-radius:999px;transition:.18s ease
-}
-.navlinks a:hover,.navlinks a.active{color:var(--ink);background:rgba(255,255,255,.06)}
-.availability{
-  justify-self:end;display:flex;align-items:center;gap:9px;
-  border:1px solid var(--line);border-radius:999px;
-  padding:9px 12px;font-size:11px;font-weight:800
-}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--acid);box-shadow:0 0 12px rgba(200,255,68,.55)}
 
+.brand{
+  display:grid;
+  grid-template-columns:46px auto;
+  align-items:center;
+  gap:11px;
+  width:max-content;
+  min-width:0;
+}
+.logo-mark{
+  width:46px;height:46px;
+  display:block;
+  overflow:visible;
+}
+.logo-mark .logo-shell,
+.logo-mark .logo-inner,
+.logo-mark .logo-n,
+.logo-mark .logo-depth,
+.logo-mark .logo-node{
+  vector-effect:non-scaling-stroke;
+}
+.logo-mark .logo-shell{fill:#0d1015;stroke:rgba(255,255,255,.22);stroke-width:1}
+.logo-mark .logo-inner{fill:none;stroke:rgba(200,255,68,.82);stroke-width:1}
+.logo-mark .logo-n{
+  fill:none;stroke:var(--ink);stroke-width:2.2;
+  stroke-linecap:square;stroke-linejoin:miter;
+}
+.logo-mark .logo-depth{
+  fill:none;stroke:rgba(85,223,255,.72);stroke-width:1;
+  stroke-dasharray:2 3;
+}
+.logo-mark .logo-node{fill:var(--acid)}
+.logo-mark .logo-ghost{fill:rgba(158,115,255,.15)}
+.brand:hover .logo-mark .logo-inner{transform:rotate(8deg);transform-origin:24px 24px}
+.brand:hover .logo-mark .logo-depth{transform:translate(1px,-1px)}
+.logo-mark .logo-inner,.logo-mark .logo-depth{transition:transform .22s ease}
+
+.brand-copy{min-width:0}
+.brand-name{
+  display:block;
+  font-weight:850;
+  font-size:13px;
+  line-height:1;
+  letter-spacing:-.035em;
+  white-space:nowrap
+}
+.brand-role{
+  display:block;
+  margin-top:6px;
+  color:#777d89;
+  font:8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  white-space:nowrap
+}
+
+.navlinks{
+  display:flex;align-items:center;gap:2px;
+  padding:4px;
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:999px;
+  background:#080a0e;
+}
+.navlinks a{
+  min-width:88px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:center;
+  gap:7px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+  padding:9px 11px;
+  border-radius:999px;
+  transition:color .18s ease,background .18s ease,transform .18s ease;
+}
+.navlinks a i{
+  color:#555b66;
+  font:8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-style:normal;
+}
+.navlinks a:hover{color:var(--ink);transform:translateY(-1px)}
+.navlinks a.active{color:#080a06;background:var(--acid)}
+.navlinks a.active i{color:rgba(8,10,6,.55)}
+
+.header-actions{
+  justify-self:end;
+  display:flex;align-items:center;gap:7px;
+}
+.header-meta{
+  display:flex;flex-direction:column;align-items:flex-end;
+  margin-right:4px;
+}
+.header-meta small{
+  color:#656b76;
+  font:8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.1em;text-transform:uppercase
+}
+.availability{
+  margin-top:5px;
+  display:flex;align-items:center;gap:7px;
+  font-size:10px;font-weight:800;
+  white-space:nowrap
+}
+.dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--acid);box-shadow:0 0 11px rgba(200,255,68,.55)
+}
+.header-icon,
+.menu-toggle{
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  padding:0;border:1px solid var(--line);
+  border-radius:13px;
+  color:var(--ink);background:rgba(255,255,255,.025);
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+.header-icon:hover,.menu-toggle:hover{
+  background:var(--acid);color:#080a06;border-color:var(--acid);transform:translateY(-1px)
+}
+.header-icon svg{width:16px;height:16px;display:block}
+.menu-toggle{display:none}
+.menu-lines{width:17px;height:12px;position:relative}
+.menu-lines::before,.menu-lines::after{
+  content:"";position:absolute;left:0;width:17px;height:1px;background:currentColor;
+  transition:transform .2s ease,top .2s ease
+}
+.menu-lines::before{top:2px}
+.menu-lines::after{top:9px}
+.menu-toggle[aria-expanded="true"] .menu-lines::before{top:6px;transform:rotate(45deg)}
+.menu-toggle[aria-expanded="true"] .menu-lines::after{top:6px;transform:rotate(-45deg)}
+
+.mobile-menu{
+  display:none;
+  border:1px solid var(--line);
+  border-top:0;
+  border-radius:0 0 18px 18px;
+  margin:-1px 7px 0;
+  background:#090b0f;
+  padding:8px;
+}
+.mobile-menu.open{display:grid}
+.mobile-menu a{
+  display:grid;
+  grid-template-columns:34px 1fr auto;
+  align-items:center;
+  min-height:52px;
+  padding:0 11px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-size:13px;font-weight:800
+}
+.mobile-menu a:last-child{border-bottom:0}
+.mobile-menu .m-no{color:#616773;font:9px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.mobile-menu .m-arrow{color:var(--acid)}
 /* ---------- hero ---------- */
 .hero{
   min-height:calc(100svh - 86px);
@@ -286,6 +439,41 @@ main,header{position:relative;z-index:2}
 }
 .hero-foot span:nth-child(2){color:var(--acid)}
 .hero-foot span:last-child{text-align:right}
+
+
+.hero-id-card{
+  position:absolute;
+  left:24px;bottom:24px;
+  width:172px;
+  border:1px solid var(--line);
+  background:#090b0f;
+  border-radius:18px;
+  padding:14px;
+  text-align:left;
+}
+.hero-id-head{
+  display:flex;align-items:center;justify-content:space-between;
+  color:#666d78;font:8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.11em;text-transform:uppercase
+}
+.hero-id-mark{
+  width:6px;height:6px;border-radius:50%;background:var(--cyan)
+}
+.hero-id-value{
+  margin-top:18px;
+  font-size:23px;font-weight:850;letter-spacing:-.05em
+}
+.hero-id-sub{
+  margin-top:4px;color:#777d87;font-size:9px;text-transform:uppercase;letter-spacing:.1em
+}
+.btn .btn-arrow{
+  width:20px;height:20px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(0,0,0,.10);
+  transition:transform .18s ease
+}
+.btn:hover .btn-arrow{transform:translate(2px,-2px)}
+.btn-secondary .btn-arrow{background:rgba(255,255,255,.06)}
 
 /* ---------- tape ---------- */
 .tape{
@@ -561,7 +749,16 @@ footer{
 
 /* ---------- mobile ---------- */
 @media(max-width:1050px){
-  .nav{grid-template-columns:1fr auto}.navlinks{display:none}
+
+  .nav{grid-template-columns:1fr auto;min-height:62px}
+  .top.is-scrolled .nav{min-height:56px}
+  .navlinks,.header-meta{display:none}
+  .header-actions{gap:5px}
+  .menu-toggle{display:grid}
+  .brand{grid-template-columns:40px auto}
+  .logo-mark{width:40px;height:40px}
+  .brand-role{font-size:7px}
+
   .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto auto}
   .hero-meta,.hero-foot{grid-column:1}
   .hero-stage{border-left:0;border-top:1px solid var(--line);min-height:420px}
@@ -574,9 +771,11 @@ footer{
 @media(max-width:760px){
   .shell{width:min(calc(100% - 18px),var(--max))}
   .top{padding:7px 0}
-  .nav{min-height:56px;border-radius:15px}
-  .brand span:last-child{display:none}
-  .availability{font-size:9px}
+  .nav{border-radius:15px}
+  .brand-copy{max-width:175px}
+  .brand-role{overflow:hidden;text-overflow:ellipsis}
+  .header-icon{width:39px;height:39px}
+  .menu-toggle{width:39px;height:39px}
   .hero{padding-top:38px;gap:10px}
   .hero h1{font-size:clamp(61px,18vw,105px)}
   .hero-meta{align-items:flex-start;flex-direction:column;gap:5px}
@@ -626,14 +825,45 @@ footer{
 
 <div class="progress-rail" id="progressRail" aria-label="Section navigation"></div>
 
-<header class="top">
+<header class="top" id="siteHeader">
   <div class="shell nav">
     <a class="brand" href="#top" aria-label="Home">
-      <i class="brand-glyph"></i><span id="brandName">NOVA RENDER</span>
+      <svg class="logo-mark" viewBox="0 0 48 48" role="img" aria-label="NOVA RENDER logo">
+        <path class="logo-shell" d="M8.2 3.5h24.9L44.5 14.9v24.9l-4.7 4.7H14.9L3.5 33.1V8.2z"/>
+        <path class="logo-ghost" d="M25 8.7 39.2 16v16.3L25 39.7 10.8 32.3V16z"/>
+        <path class="logo-inner" d="M11.2 14.7 24 8.2l12.8 6.5v18.6L24 39.8l-12.8-6.5z"/>
+        <path class="logo-depth" d="M11.2 14.7 24 21.2l12.8-6.5M24 21.2v18.6"/>
+        <path class="logo-n" d="M15.8 31.9V16.4l16.4 15.5V16.4"/>
+        <circle class="logo-node" cx="11.2" cy="14.7" r="1.4"/>
+        <circle class="logo-node" cx="36.8" cy="33.3" r="1.4"/>
+      </svg>
+      <span class="brand-copy">
+        <span class="brand-name" id="brandName">NOVA RENDER</span>
+        <span class="brand-role" id="brandRole">3D ARTIST / ARCHVIZ</span>
+      </span>
     </a>
+
     <nav class="navlinks" id="navLinks" aria-label="Main navigation"></nav>
-    <a class="availability" id="availabilityLink" href="#contact"><i class="dot"></i><span id="availabilityText"></span></a>
+
+    <div class="header-actions">
+      <div class="header-meta">
+        <small id="headerLocation">Worldwide / Remote</small>
+        <a class="availability" id="availabilityLink" href="#contact"><i class="dot"></i><span id="availabilityText"></span></a>
+      </div>
+      <a class="header-icon" id="headerEmail" href="#" aria-label="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6.5h16v11H4z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="m4.8 7.2 7.2 5.4 7.2-5.4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="menu-lines"></span>
+      </button>
+    </div>
+
+    <div class="header-progress" aria-hidden="true"></div>
   </div>
+  <nav class="shell mobile-menu" id="mobileMenu" aria-label="Mobile navigation"></nav>
 </header>
 
 <main id="top">
@@ -648,8 +878,8 @@ footer{
       <h1 class="reveal" id="heroTitle"></h1>
       <p class="hero-description reveal" id="heroDescription"></p>
       <div class="actions reveal">
-        <a class="btn btn-primary" href="#work">Enter portfolio ↘</a>
-        <a class="btn btn-secondary" id="emailHero" href="#">Discuss a project ↗</a>
+        <a class="btn btn-primary" href="#work"><span>Enter portfolio</span><span class="btn-arrow">↘</span></a>
+        <a class="btn btn-secondary" id="emailHero" href="#"><span>Discuss a project</span><span class="btn-arrow">↗</span></a>
       </div>
     </div>
 
@@ -664,6 +894,11 @@ footer{
         <span class="scene-label b">LIGHT / 5400K</span>
         <span class="scene-label c">FRAME / CGI</span>
         <div class="scene-code">X 41.403<br>Y 02.174<br>Z 18.005<br>FOV 32MM</div>
+      </div>
+      <div class="hero-id-card">
+        <div class="hero-id-head"><span>Render system</span><i class="hero-id-mark"></i></div>
+        <div class="hero-id-value" id="heroIdValue">N/R·01</div>
+        <div class="hero-id-sub" id="heroIdSub">Architectural image making</div>
       </div>
     </div>
 
@@ -735,7 +970,7 @@ footer{
         <div class="index">04 / Contact</div>
         <h2>Let's build<br><span>the unreal.</span></h2>
         <p id="contactText"></p>
-        <a class="btn btn-primary" id="contactEmail" href="#">Send project brief ↗</a>
+        <a class="btn btn-primary" id="contactEmail" href="#"><span>Send project brief</span><span class="btn-arrow">↗</span></a>
         <div class="socials" id="socials"></div>
       </div>
     </div>
@@ -773,7 +1008,10 @@ const PORTFOLIO_DATA = {
     location:"Worldwide / Remote",
     availability:"Available for projects",
     email:"hello@novarender.studio",
-    coordinates:"ART DIRECTION / ARCHVIZ / CGI"
+    coordinates:"ART DIRECTION / ARCHVIZ / CGI",
+    brandRole:"3D ARTIST / ARCHVIZ",
+    renderId:"N/R·01",
+    renderSystem:"Architectural image making"
   },
 
   hero:{
@@ -896,6 +1134,10 @@ const d=PORTFOLIO_DATA;
 function render(){
   document.title=`${d.identity.name} — ${d.identity.role}`;
   $("#brandName").textContent=d.identity.name;
+  $("#brandRole").textContent=d.identity.brandRole;
+  $("#headerLocation").textContent=d.identity.location;
+  $("#heroIdValue").textContent=d.identity.renderId;
+  $("#heroIdSub").textContent=d.identity.renderSystem;
   $("#availabilityText").textContent=d.identity.availability;
   $("#heroMetaLeft").textContent=`${d.identity.role} / ${d.identity.location}`;
   $("#heroMetaRight").textContent=d.identity.coordinates;
@@ -917,8 +1159,10 @@ function render(){
   const mail=`mailto:${d.identity.email}?subject=${encodeURIComponent("Architectural visualization project")}`;
   $("#emailHero").href=mail;
   $("#contactEmail").href=mail;
+  $("#headerEmail").href=mail;
 
-  $("#navLinks").innerHTML=d.navigation.map(n=>`<a href="${n.target}">${n.label}</a>`).join("");
+  $("#navLinks").innerHTML=d.navigation.map((n,i)=>`<a href="${n.target}"><i>${String(i+1).padStart(2,"0")}</i><span>${n.label}</span></a>`).join("");
+  $("#mobileMenu").innerHTML=d.navigation.map((n,i)=>`<a href="${n.target}"><span class="m-no">${String(i+1).padStart(2,"0")}</span><span>${n.label}</span><span class="m-arrow">↘</span></a>`).join("");
   $("#progressRail").innerHTML=d.navigation.map(n=>`<a href="${n.target}" aria-label="${n.label}"></a>`).join("");
 
   $("#stats").innerHTML=d.about.stats.map(s=>`<div class="stat"><b>${s.value}</b><small>${s.label}</small></div>`).join("");
@@ -1079,7 +1323,55 @@ function initImageErrors(){
   },true);
 }
 
+
+function initHeader(){
+  const header=$("#siteHeader");
+  const toggle=$("#menuToggle");
+  const mobile=$("#mobileMenu");
+  let scheduled=false;
+
+  function paint(){
+    scheduled=false;
+    const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+    const progress=Math.min(1,Math.max(0,scrollY/max));
+    document.documentElement.style.setProperty("--scroll-progress",progress.toFixed(4));
+    header.classList.toggle("is-scrolled",scrollY>18);
+  }
+
+  function schedule(){
+    if(!scheduled){
+      scheduled=true;
+      requestAnimationFrame(paint);
+    }
+  }
+
+  addEventListener("scroll",schedule,{passive:true});
+  addEventListener("resize",schedule,{passive:true});
+  paint();
+
+  toggle.addEventListener("click",()=>{
+    const open=toggle.getAttribute("aria-expanded")!=="true";
+    toggle.setAttribute("aria-expanded",String(open));
+    mobile.classList.toggle("open",open);
+  });
+
+  mobile.addEventListener("click",e=>{
+    if(!e.target.closest("a"))return;
+    toggle.setAttribute("aria-expanded","false");
+    mobile.classList.remove("open");
+  });
+
+  addEventListener("keydown",e=>{
+    if(e.key==="Escape"&&mobile.classList.contains("open")){
+      toggle.setAttribute("aria-expanded","false");
+      mobile.classList.remove("open");
+      toggle.focus();
+    }
+  });
+}
+
 render();
+initHeader();
 initFilters();
 initModal();
 initReveal();

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07080b">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSI3IiB5MT0iNSIgeDI9IjU3IiB5Mj0iNTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iI2M4ZmY0NCIvPgogICAgICA8c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzU1ZGZmZiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM5ZTczZmYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE2IiBmaWxsPSIjMDgwYTBlIi8+CiAgPHBhdGggZD0iTTEzIDE4IDMxIDhsMjAgMTF2MjdMMzIgNTYgMTMgNDVaIiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjZykiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0xMyAxOCAzMiAyOWwxOS0xME0zMiAyOXYyNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utb3BhY2l0eT0iLjIyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8Y2lyY2xlIGN4PSIxMyIgY3k9IjE4IiByPSIyLjQiIGZpbGw9IiNjOGZmNDQiLz4KICA8Y2lyY2xlIGN4PSI1MSIgY3k9IjQ2IiByPSIyLjQiIGZpbGw9IiM1NWRmZmYiLz4KICA8cGF0aCBmaWxsPSIjZjZmN2Y4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMSAxOGgxMy4xYzcuMiAwIDExLjIgMy4yIDExLjIgOC4xIDAgMy40LTIgNS45LTUuNiA3LjEgNC40IDEgNi42IDMuOCA2LjYgNy42IDAgNS43LTQuNSA5LjItMTIuMSA5LjJIMjFWMThabTcgNnY2LjZoNS41YzMgMCA0LjctMS4yIDQuNy0zLjRTMzYuNSAyNCAzMy41IDI0SDI4Wm0wIDEyLjFWNDRoNi4yYzMuMyAwIDUtMS40IDUtNHMtMS43LTMuOS01LTMuOUgyOFoiLz4KPC9zdmc+">
 <meta name="description" content="3D Artist & Architectural Visualization Portfolio">
 <title>3D Artist — Architectural Visualization</title>
 
@@ -169,16 +170,16 @@ main,header{position:relative;z-index:2}
 }
 .logo-mark .logo-shell,
 .logo-mark .logo-inner,
-.logo-mark .logo-n,
+.logo-mark .logo-letter,
 .logo-mark .logo-depth,
 .logo-mark .logo-node{
   vector-effect:non-scaling-stroke;
 }
 .logo-mark .logo-shell{fill:#0d1015;stroke:rgba(255,255,255,.22);stroke-width:1}
 .logo-mark .logo-inner{fill:none;stroke:rgba(200,255,68,.82);stroke-width:1}
-.logo-mark .logo-n{
-  fill:none;stroke:var(--ink);stroke-width:2.2;
-  stroke-linecap:square;stroke-linejoin:miter;
+.logo-mark .logo-letter{
+  fill:var(--ink);
+  stroke:none;
 }
 .logo-mark .logo-depth{
   fill:none;stroke:rgba(85,223,255,.72);stroke-width:1;
@@ -306,6 +307,8 @@ main,header{position:relative;z-index:2}
   font-size:13px;font-weight:800
 }
 .mobile-menu a:last-child{border-bottom:0}
+.mobile-menu a.active{background:rgba(200,255,68,.07);color:var(--acid);border-radius:11px}
+.mobile-menu a.active .m-no{color:var(--acid)}
 .mobile-menu .m-no{color:#616773;font:9px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
 .mobile-menu .m-arrow{color:var(--acid)}
 /* ---------- hero ---------- */
@@ -708,16 +711,75 @@ footer{
   color:#676c77;font-size:9px;text-transform:uppercase;letter-spacing:.12em
 }
 
-/* ---------- progress rail ---------- */
+/* ---------- progress rail / synchronized scroll spy ---------- */
 .progress-rail{
-  position:fixed;right:10px;top:50%;z-index:55;transform:translateY(-50%);
-  display:flex;flex-direction:column;gap:7px
+  position:fixed;
+  right:12px;
+  top:50%;
+  z-index:55;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:5px;
+  padding:9px 8px;
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:16px;
+  background:rgba(9,11,15,.9);
+  box-shadow:0 12px 36px rgba(0,0,0,.18);
 }
 .progress-rail a{
-  width:28px;height:7px;border:1px solid var(--line);border-radius:999px;
-  background:#0a0c10;transition:width .18s ease,background .18s ease
+  position:relative;
+  width:28px;
+  height:8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#101219;
+  transition:width .2s ease,background .2s ease,border-color .2s ease,transform .2s ease;
 }
-.progress-rail a.active{width:46px;background:var(--acid);border-color:var(--acid);transform:translateX(-18px)}
+.progress-rail a::before{
+  content:attr(data-index);
+  position:absolute;
+  right:calc(100% + 10px);
+  top:50%;
+  transform:translateY(-50%) translateX(5px);
+  color:#707682;
+  font:8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  opacity:0;
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+}
+.progress-rail a::after{
+  content:attr(data-label);
+  position:absolute;
+  right:calc(100% + 28px);
+  top:50%;
+  transform:translateY(-50%) translateX(6px);
+  padding:6px 8px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#090b0f;
+  color:#b9bec8;
+  font-size:9px;
+  font-weight:800;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.progress-rail a:hover{width:40px;border-color:var(--line2)}
+.progress-rail a:hover::after{opacity:1;transform:translateY(-50%) translateX(0)}
+.progress-rail a.active{
+  width:48px;
+  background:var(--acid);
+  border-color:var(--acid);
+  box-shadow:0 0 14px rgba(200,255,68,.13);
+}
+.progress-rail a.active::before{
+  opacity:1;
+  transform:translateY(-50%) translateX(0);
+  color:var(--acid);
+}
 
 /* ---------- modal ---------- */
 .modal{
@@ -828,17 +890,17 @@ footer{
 <header class="top" id="siteHeader">
   <div class="shell nav">
     <a class="brand" href="#top" aria-label="Home">
-      <svg class="logo-mark" viewBox="0 0 48 48" role="img" aria-label="NOVA RENDER logo">
+      <svg class="logo-mark" viewBox="0 0 48 48" role="img" aria-label="Bulanov logo">
         <path class="logo-shell" d="M8.2 3.5h24.9L44.5 14.9v24.9l-4.7 4.7H14.9L3.5 33.1V8.2z"/>
         <path class="logo-ghost" d="M25 8.7 39.2 16v16.3L25 39.7 10.8 32.3V16z"/>
         <path class="logo-inner" d="M11.2 14.7 24 8.2l12.8 6.5v18.6L24 39.8l-12.8-6.5z"/>
         <path class="logo-depth" d="M11.2 14.7 24 21.2l12.8-6.5M24 21.2v18.6"/>
-        <path class="logo-n" d="M15.8 31.9V16.4l16.4 15.5V16.4"/>
+        <path class="logo-letter" fill-rule="evenodd" d="M14.8 14.3h11.1c6 0 9.4 2.7 9.4 6.8 0 2.9-1.7 4.9-4.7 5.9 3.7.8 5.6 3.1 5.6 6.3 0 4.8-3.8 7.7-10.2 7.7H14.8V14.3Zm5.9 5.1v5.5h4.6c2.5 0 3.9-1 3.9-2.8 0-1.8-1.4-2.7-3.9-2.7h-4.6Zm0 10.1V36h5.2c2.8 0 4.2-1.2 4.2-3.3 0-2.2-1.4-3.2-4.2-3.2h-5.2Z"/>
         <circle class="logo-node" cx="11.2" cy="14.7" r="1.4"/>
         <circle class="logo-node" cx="36.8" cy="33.3" r="1.4"/>
       </svg>
       <span class="brand-copy">
-        <span class="brand-name" id="brandName">NOVA RENDER</span>
+        <span class="brand-name" id="brandName">Bulanov CGI</span>
         <span class="brand-role" id="brandRole">3D ARTIST / ARCHVIZ</span>
       </span>
     </a>
@@ -850,10 +912,9 @@ footer{
         <small id="headerLocation">Worldwide / Remote</small>
         <a class="availability" id="availabilityLink" href="#contact"><i class="dot"></i><span id="availabilityText"></span></a>
       </div>
-      <a class="header-icon" id="headerEmail" href="#" aria-label="Email">
+      <a class="header-icon" href="#work" aria-label="View selected work" title="Selected work">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 6.5h16v11H4z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <path d="m4.8 7.2 7.2 5.4 7.2-5.4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M5 5h5v5H5zM14 5h5v5h-5zM5 14h5v5H5zM14 14h5v5h-5z" fill="none" stroke="currentColor" stroke-width="1.45"/>
         </svg>
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -879,7 +940,7 @@ footer{
       <p class="hero-description reveal" id="heroDescription"></p>
       <div class="actions reveal">
         <a class="btn btn-primary" href="#work"><span>Enter portfolio</span><span class="btn-arrow">↘</span></a>
-        <a class="btn btn-secondary" id="emailHero" href="#"><span>Discuss a project</span><span class="btn-arrow">↗</span></a>
+        <a class="btn btn-secondary" href="#about"><span>About the practice</span><span class="btn-arrow">↘</span></a>
       </div>
     </div>
 
@@ -897,7 +958,7 @@ footer{
       </div>
       <div class="hero-id-card">
         <div class="hero-id-head"><span>Render system</span><i class="hero-id-mark"></i></div>
-        <div class="hero-id-value" id="heroIdValue">N/R·01</div>
+        <div class="hero-id-value" id="heroIdValue">B/V·01</div>
         <div class="hero-id-sub" id="heroIdSub">Architectural image making</div>
       </div>
     </div>
@@ -970,7 +1031,7 @@ footer{
         <div class="index">04 / Contact</div>
         <h2>Let's build<br><span>the unreal.</span></h2>
         <p id="contactText"></p>
-        <a class="btn btn-primary" id="contactEmail" href="#"><span>Send project brief</span><span class="btn-arrow">↗</span></a>
+        <a class="btn btn-primary" id="contactPrimary" href="#" target="_blank" rel="noreferrer"><span id="contactPrimaryLabel">View Behance</span><span class="btn-arrow">↗</span></a>
         <div class="socials" id="socials"></div>
       </div>
     </div>
@@ -1003,14 +1064,13 @@ footer{
    =================================================================== */
 const PORTFOLIO_DATA = {
   identity:{
-    name:"NOVA RENDER",
+    name:"Bulanov CGI",
     role:"3D Artist & Architectural Visualizer",
     location:"Worldwide / Remote",
     availability:"Available for projects",
-    email:"hello@novarender.studio",
     coordinates:"ART DIRECTION / ARCHVIZ / CGI",
     brandRole:"3D ARTIST / ARCHVIZ",
-    renderId:"N/R·01",
+    renderId:"B/V·01",
     renderSystem:"Architectural image making"
   },
 
@@ -1102,7 +1162,8 @@ const PORTFOLIO_DATA = {
   ],
 
   contact:{
-    text:"For commissions and collaborations, send a short brief with the project type, location, approximate number of images and desired delivery window.",
+    text:"For commissions and collaborations, use the portfolio and social links below. Project inquiries can start from whichever platform is most convenient for you.",
+    primaryLink:{label:"View Behance",url:"https://www.behance.net/"},
     socials:[
       {label:"Behance",url:"https://www.behance.net/"},
       {label:"Instagram",url:"https://www.instagram.com/"},
@@ -1121,7 +1182,7 @@ const PORTFOLIO_DATA = {
   ticker:["ARCHVIZ","EXTERIOR CGI","INTERIOR CGI","3DS MAX","CORONA RENDERER","V-RAY","ART DIRECTION","ANIMATION"],
 
   footer:{
-    left:"© 2026 NOVA RENDER",
+    left:"© 2026 Bulanov CGI",
     right:"3D ARTIST / ARCHITECTURAL VISUALIZATION"
   }
 };
@@ -1155,15 +1216,12 @@ function render(){
   $("#contactText").textContent=d.contact.text;
   $("#footerLeft").textContent=d.footer.left;
   $("#footerRight").textContent=d.footer.right;
-
-  const mail=`mailto:${d.identity.email}?subject=${encodeURIComponent("Architectural visualization project")}`;
-  $("#emailHero").href=mail;
-  $("#contactEmail").href=mail;
-  $("#headerEmail").href=mail;
+  $("#contactPrimary").href=d.contact.primaryLink.url;
+  $("#contactPrimaryLabel").textContent=d.contact.primaryLink.label;
 
   $("#navLinks").innerHTML=d.navigation.map((n,i)=>`<a href="${n.target}"><i>${String(i+1).padStart(2,"0")}</i><span>${n.label}</span></a>`).join("");
   $("#mobileMenu").innerHTML=d.navigation.map((n,i)=>`<a href="${n.target}"><span class="m-no">${String(i+1).padStart(2,"0")}</span><span>${n.label}</span><span class="m-arrow">↘</span></a>`).join("");
-  $("#progressRail").innerHTML=d.navigation.map(n=>`<a href="${n.target}" aria-label="${n.label}"></a>`).join("");
+  $("#progressRail").innerHTML=d.navigation.map((n,i)=>`<a href="${n.target}" data-index="${String(i+1).padStart(2,"0")}" data-label="${n.label}" aria-label="${n.label}"></a>`).join("");
 
   $("#stats").innerHTML=d.about.stats.map(s=>`<div class="stat"><b>${s.value}</b><small>${s.label}</small></div>`).join("");
 
@@ -1294,26 +1352,85 @@ function initPointer(){
 }
 
 function initSectionSpy(){
-  const sections=d.navigation
-    .map((n,i)=>({el:$(n.target),nav:$$(".navlinks a")[i],rail:$$(".progress-rail a")[i]}))
-    .filter(x=>x.el);
+  const navItems=d.navigation.map((n,i)=>({
+    target:n.target,
+    el:$(n.target),
+    nav:$$(".navlinks a")[i],
+    rail:$$(".progress-rail a")[i],
+    mobile:$$(".mobile-menu a")[i],
+    top:0
+  })).filter(item=>item.el);
 
-  const spy=new IntersectionObserver(entries=>{
-    const visible=entries
-      .filter(e=>e.isIntersecting)
-      .sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-    if(!visible)return;
-    const item=sections.find(s=>s.el===visible.target);
-    if(!item)return;
-    sections.forEach(s=>{
-      s.nav?.classList.toggle("active",s===item);
-      s.rail?.classList.toggle("active",s===item);
+  let ticking=false;
+  let activeIndex=-2;
+
+  function measure(){
+    navItems.forEach(item=>{
+      item.top=item.el.getBoundingClientRect().top+scrollY;
     });
-  },{threshold:[.18,.35,.55],rootMargin:"-16% 0px -55% 0px"});
+    update();
+  }
 
-  sections.forEach(s=>spy.observe(s.el));
+  function setActive(index){
+    if(index===activeIndex)return;
+    activeIndex=index;
+
+    navItems.forEach((item,i)=>{
+      const active=i===index;
+      item.nav?.classList.toggle("active",active);
+      item.rail?.classList.toggle("active",active);
+      item.mobile?.classList.toggle("active",active);
+
+      if(active){
+        item.nav?.setAttribute("aria-current","page");
+        item.rail?.setAttribute("aria-current","page");
+        item.mobile?.setAttribute("aria-current","page");
+      }else{
+        item.nav?.removeAttribute("aria-current");
+        item.rail?.removeAttribute("aria-current");
+        item.mobile?.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function update(){
+    ticking=false;
+    const headerHeight=$("#siteHeader")?.offsetHeight||72;
+    const marker=scrollY+headerHeight+Math.min(innerHeight*.26,220);
+    const pageBottom=scrollY+innerHeight;
+    const docBottom=document.documentElement.scrollHeight;
+
+    let index=-1; // Hero / intro: no section link is falsely highlighted.
+
+    for(let i=0;i<navItems.length;i++){
+      if(marker>=navItems[i].top) index=i;
+      else break;
+    }
+
+    // Always activate the final section when the viewport reaches the page end.
+    if(docBottom-pageBottom<=6 && navItems.length) index=navItems.length-1;
+
+    setActive(index);
+  }
+
+  function schedule(){
+    if(!ticking){
+      ticking=true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  addEventListener("scroll",schedule,{passive:true});
+  addEventListener("resize",()=>{
+    requestAnimationFrame(measure);
+  },{passive:true});
+
+  // Re-measure after images/fonts can affect document geometry.
+  addEventListener("load",measure,{once:true});
+  if(document.fonts?.ready) document.fonts.ready.then(measure);
+
+  measure();
 }
-
 function initImageErrors(){
   $("#projects").addEventListener("error",e=>{
     if(e.target.tagName!=="IMG")return;
@@ -1347,6 +1464,7 @@ function initHeader(){
 
   addEventListener("scroll",schedule,{passive:true});
   addEventListener("resize",schedule,{passive:true});
+  addEventListener("load",paint,{once:true});
   paint();
 
   toggle.addEventListener("click",()=>{
